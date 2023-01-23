@@ -9,7 +9,7 @@ def room1():
 
     codes_cracked = 0
     attemptsMade = 0
-
+    print("You enter an empty room with nothing but a table and a safe.")
     while codes_cracked < 3 and attemptsMade < 3:
         for x in safe_code:
             print("The code is", x)
