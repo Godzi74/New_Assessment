@@ -41,7 +41,7 @@ class PentajackGame:
     playing = True
     playerHand = []
     playerTotal = 0
-    lives = 1
+    lives = 5
     dealerHand = []
     dealerTotal = 0
     gameWin = False
@@ -87,13 +87,27 @@ def push():
     print("The dealer drew {}. You also have {}. No winners!".format(PentajackGame.dealerTotal, PentajackGame.playerTotal))
 
 def Pentajack():
+    if PentajackGame.gameWin == False:
+        print("""You find yourself as a Casino, bustling with gamblers at nearly every slot and table. You try to
+        start conversation to try and fin out if anyone knows what is going on or how to escape, but they are completely
+        entranced in their gambling activities. You try and leave the room from where you came from, however, you soon
+        realise that the entrance that you entered through has now mysteriously vanished.
+        """)
+        print("""You notice a hooded figure cloaked in black, staring a you. They eventually approach you and say that
+        they overheard you. "There's one way you can leave this place" he says, as he leads you to a table. "All you 
+        have to do is beat me in a game of Pentajack. The rules are simple; score higher than me, but don't go over 21.
+        In this game, you don't play with chips; you play with your life.
+        """)
+        print("""Completely mortified, you freeze in place. After a moment, you regain composure and soon realise that
+        a better option is truly wishful thinking and that this is the only way forward and out. You accept the rules
+        of the game. The figure offers you a seat.
+        """)
+        print("Welcome to the table")
+    else:
+        print("You've already been in this room.")
+        return
     while True:
-        if PentajackGame.gameWin == False:
-            print("Welcome to the table")
-            draw()
-        else:
-            print("You've already been in this room.")
-            break
+        draw()
         while PentajackGame.playing:
             hitOrStand()
 
@@ -141,9 +155,131 @@ def Pentajack():
         else:
             print("You walk away from the table, winnings in hand as the exit to the room opens up once more.")
             break
+
+class Combat:
+    gameWin = False
+    roundNumber = 0
+    weapons = ["Sword", "Lance", "Axe"]
+    element = ["Fire", "Water", "Ice"]
+    playerAttack = 0
+    playerHP = 100
+    playerWeapon = {}
+    playerElement = {}
+    enemyAttack = 0
+    enemyHP = 100
+    enemyWeapon = None
+    enemyElement = None
+def enemyChoice():
+    Combat.enemyWeapon = random.choice(Combat.weapons)
+    print(Combat.enemyWeapon)
+    Combat.enemyElement = random.choice(Combat.element)
+    print((Combat.enemyElement))
+    if "Ice" in Combat.enemyElement:
+        print("""There is a misty atmosphere swirling around the arena...""")
+    elif "Fire" in Combat.enemyElement:
+        print("""You feel as though the arena is the Sahara Desert, as you wipe the sweat off your brow...""")
+    elif "Water" in Combat.enemyElement:
+        print("""You feel your shoes slightly sink into the ground as the floor in the arena dampens a bit...""")
+def playerChoice():
+    while True:
+        weaponChoice = input("Select a weapon. You have a sword, a lance and an axe.")
+        if weaponChoice.lower() == "sword":
+            Combat.playerWeapon = {"Sword": 10}
+            break
+        elif weaponChoice.lower() == "lance":
+            Combat.playerWeapon = {"Lance": 10}
+            break
+        elif weaponChoice.lower() == "axe":
+            Combat.playerWeapon = {"Axe": 10}
+            break
+        else:
+            print("You don't have that weapon. Are you trying to die?!")
+            continue
+    while True:
+        elementChoice = input("Select the magic you will use. You can use fire, water or ice.")
+        if elementChoice.lower() == "fire":
+            Combat.playerElement = {"Fire": 10}
+            break
+        elif elementChoice.lower() == "water":
+            Combat.playerElement = {"Water": 10}
+            break
+        elif elementChoice.lower() == "ice":
+            Combat.playerElement = {"Ice": 10}
+            break
+        else:
+            print("You don't know how to cast that type of magic. Stop fooling around!")
+            continue
+def damage():
+    if "Sword" in Combat.playerWeapon and "Axe" in Combat.enemyWeapon:
+        Combat.playerAttack = 20
+        Combat.enemyAttack = 5
+
+    elif "Sword" in Combat.playerWeapon and "Lance" in Combat.enemyWeapon:
+        Combat.playerAttack = 5
+        Combat.enemyAttack = 20
+
+    elif "Lance" in Combat.playerWeapon and "Sword" in Combat.enemyWeapon:
+        Combat.playerAttack = 20
+        Combat.enemyAttack = 5
+
+    elif "Lance" in Combat.playerWeapon and "Axe" in Combat.enemyWeapon:
+        Combat.playerAttack = 5
+        Combat.enemyAttack = 20
+
+    elif "Axe" in Combat.playerWeapon and "Lance" in Combat.enemyWeapon:
+        Combat.playerAttack = 20
+        Combat.enemyAttack = 5
+
+    elif "Axe" in Combat.playerWeapon and "Sword" in Combat.enemyWeapon:
+        Combat.playerAttack = 5
+        Combat.enemyAttack = 20
+    else:
+        Combat.playerAttack = 10
+        Combat.enemyAttack = 10
+
+    if "Fire" in Combat.playerElement and "Ice" in Combat.enemyElement:
+        Combat.playerAttack = Combat.playerAttack + 20
+
+    elif "Fire" in Combat.playerElement and "Water" in Combat.enemyElement:
+        Combat.enemyAttack = Combat.enemyAttack + 20
+
+    elif "Water" in Combat.playerElement and "Fire" in Combat.enemyElement:
+        Combat.playerAttack = Combat.playerAttack + 20
+
+    elif "Water" in Combat.playerElement and "Ice" in Combat.enemyElement:
+        Combat.enemyAttack = Combat.enemyAttack + 20
+
+    elif "Ice" in Combat.playerElement and "Water" in Combat.enemyElement:
+        Combat.playerAttack = Combat.playerAttack + 20
+
+    elif "Ice" in Combat.playerElement and "Fire" in Combat.enemyElement:
+        Combat.enemyAttack = Combat.enemyAttack + 20
+
+    else:
+        Combat.playerAttack = Combat.playerAttack + 5
+        Combat.enemyAttack = Combat.enemyAttack + 5
+
+
+
+def gameFramework():
+    if Combat.gameWin == False:
+        print("Hello")
+    else:
+        print("Goodbye")
+    while True:
+        if Combat.gameWin == False:
+            enemyChoice()
+            playerChoice()
+            damage()
+        else:
+            print("You've already been in this room.")
+            break
+
+
 nextStage = False
 
 while nextStage == False:
+    #gameFramework()
     gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
     a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
      is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? """)
