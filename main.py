@@ -133,8 +133,8 @@ def Pentajack():
                 print("The dealer drew {}. You have a higher hand of {}".format(PentajackGame.dealerTotal,
                                                                                 PentajackGame.playerTotal))
                 print("""You won against the dealer! """)
-                print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written in
-                            blood. You stash the card away in your clues inventory.""")
+                print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written 
+                        in blood. You stash the card away in your clues inventory.""")
                 PentajackGame.gameWin = True
             else:
                 push()
@@ -148,8 +148,8 @@ def Pentajack():
             PentajackGame.dealerTotal = 0
             continue
         elif PentajackGame.gameWin == False and PentajackGame.lives == 0:
-            print("""You lean back from the table in horror, as you have no more lives to gamble. You slowly slump over in
-            your chair as you feel your life force seep away from you.""")
+            print("""You lean back from the table in horror, as you have no more lives to gamble. You slowly slump over 
+                    in your chair as you feel your life force seep away from you.""")
             exit()
 
         else:
@@ -158,15 +158,15 @@ def Pentajack():
 
 class Combat:
     gameWin = False
-    roundNumber = 0
+    roundNumber = 1
     weapons = ["Sword", "Lance", "Axe"]
     element = ["Fire", "Water", "Ice"]
     playerAttack = 0
-    playerHP = 100
+    playerHP = 150
     playerWeapon = {}
     playerElement = {}
     enemyAttack = 0
-    enemyHP = 100
+    enemyHP = 150
     enemyWeapon = None
     enemyElement = None
 def enemyChoice():
@@ -174,6 +174,7 @@ def enemyChoice():
     print(Combat.enemyWeapon)
     Combat.enemyElement = random.choice(Combat.element)
     print((Combat.enemyElement))
+    print("Round {}. FIGHT!".format(Combat.roundNumber))
     if "Ice" in Combat.enemyElement:
         print("""There is a misty atmosphere swirling around the arena...""")
     elif "Fire" in Combat.enemyElement:
@@ -209,55 +210,128 @@ def playerChoice():
         else:
             print("You don't know how to cast that type of magic. Stop fooling around!")
             continue
-def damage():
+def fight():
     if "Sword" in Combat.playerWeapon and "Axe" in Combat.enemyWeapon:
         Combat.playerAttack = 20
         Combat.enemyAttack = 5
-
+        print("Your sword has an advantage against their axe!")
     elif "Sword" in Combat.playerWeapon and "Lance" in Combat.enemyWeapon:
         Combat.playerAttack = 5
         Combat.enemyAttack = 20
-
+        print("Your sword is at a disadvantage to their lance!")
     elif "Lance" in Combat.playerWeapon and "Sword" in Combat.enemyWeapon:
         Combat.playerAttack = 20
         Combat.enemyAttack = 5
-
+        print("Your lance has an advantage against their sword!")
     elif "Lance" in Combat.playerWeapon and "Axe" in Combat.enemyWeapon:
         Combat.playerAttack = 5
         Combat.enemyAttack = 20
-
+        print("Your lance is at a disadvantage to their axe!")
     elif "Axe" in Combat.playerWeapon and "Lance" in Combat.enemyWeapon:
         Combat.playerAttack = 20
         Combat.enemyAttack = 5
-
+        print("Your axe has an advantage against their lance!")
     elif "Axe" in Combat.playerWeapon and "Sword" in Combat.enemyWeapon:
         Combat.playerAttack = 5
         Combat.enemyAttack = 20
+        print("Your axe is at a disadvantage to their sword!")
     else:
         Combat.playerAttack = 10
         Combat.enemyAttack = 10
+        print("Your weapons are equally matched!")
 
     if "Fire" in Combat.playerElement and "Ice" in Combat.enemyElement:
         Combat.playerAttack = Combat.playerAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""Your burning flames melt away your foe's power of ice, rendering them with a normal weapon. You deal {}
+                to the enemy. Your foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(Combat.playerAttack,
+        Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
     elif "Fire" in Combat.playerElement and "Water" in Combat.enemyElement:
         Combat.enemyAttack = Combat.enemyAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""Your burning flames are extinguished by your foe's overwhelming torrents, rendering you with a normal 
+                weapon. You deal {} to the enemy. Your foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(Combat.playerAttack,
+        Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
     elif "Water" in Combat.playerElement and "Fire" in Combat.enemyElement:
         Combat.playerAttack = Combat.playerAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""Your raging tides extinguish the flames of your foe's weapon, rendering them with a normal weapon. You 
+                deal {} to the enemy. Your foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(Combat.playerAttack,
+        Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
     elif "Water" in Combat.playerElement and "Ice" in Combat.enemyElement:
         Combat.enemyAttack = Combat.enemyAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""Your raging tides are frozen to a halt by the frost of your foe's weapon, rendering you with a normal 
+                weapon. You deal {} to the enemy. Your foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(
+            Combat.playerAttack,
+            Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
+
 
     elif "Ice" in Combat.playerElement and "Water" in Combat.enemyElement:
         Combat.playerAttack = Combat.playerAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""The wicked blizzard emerging from your weapon freezes and shatters the waves of your foe's weapon, 
+                rendering them with a normal weapon. You deal {} to the enemy. Your foe has {} HP. The enemy deals {} 
+                to you. You have {} HP.""".format(
+            Combat.playerAttack,
+            Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
     elif "Ice" in Combat.playerElement and "Fire" in Combat.enemyElement:
         Combat.enemyAttack = Combat.enemyAttack + 20
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""The wicked blizzard emerging from your weapon dissipates due to the growing flames of your foe's
+                weapon, rendering you with a normal weapon. You deal {} to the enemy. Your foe has {} HP. The enemy deals {} 
+                to you. You have {} HP.""".format(
+            Combat.playerAttack,
+            Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
     else:
         Combat.playerAttack = Combat.playerAttack + 5
         Combat.enemyAttack = Combat.enemyAttack + 5
+        Combat.playerHP = Combat.playerHP - Combat.enemyAttack
+        Combat.enemyHP = Combat.enemyHP - Combat.playerAttack
+        print("""The power of both your elements shine as they are both equally matched. You deal {} to the enemy. Your 
+foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(
+            Combat.playerAttack,
+            Combat.enemyHP, Combat.enemyAttack, Combat.playerHP))
+        Combat.enemyAttack = 0
+        Combat.enemyElement = None
+        Combat.enemyWeapon = None
+        Combat.roundNumber = Combat.roundNumber + 1
 
 
 
@@ -266,20 +340,32 @@ def gameFramework():
         print("Hello")
     else:
         print("Goodbye")
+        return
     while True:
-        if Combat.gameWin == False:
+        while Combat.playerHP > 0 and Combat.enemyHP > 0:
             enemyChoice()
             playerChoice()
-            damage()
-        else:
-            print("You've already been in this room.")
+            fight()
+
+        if Combat.playerHP > 0 and Combat.enemyHP <= 0:
+            print("Win")
             break
+        elif Combat.playerHP <= 0 and Combat.enemyHP > 0:
+            print("Lose")
+            exit()
+        elif Combat.playerHP <= 0 and Combat.enemyHP <= 0:
+            if Combat.playerHP > Combat.enemyHP:
+                print("Winner.")
+                break
+            else:
+                print("Loser")
+                exit()
 
 
 nextStage = False
 
 while nextStage == False:
-    #gameFramework()
+    gameFramework()
     gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
     a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
      is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? """)
