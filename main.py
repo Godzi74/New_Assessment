@@ -1,6 +1,7 @@
 import random
 
-def room1():
+clues = []
+def codeCracker():
     safe_code = []
     while len(safe_code) < 3:
         code = random.randint(3, 12)
@@ -81,8 +82,6 @@ def hitOrStand():
             print("That's not an answer. Give me a real man's answer.")
             continue
         break
-
-
 def push():
     print("The dealer drew {}. You also have {}. No winners!".format(PentajackGame.dealerTotal, PentajackGame.playerTotal))
 
@@ -124,6 +123,7 @@ def Pentajack():
                 print("""You won against the dealer! """)
                 print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written in
                 blood. You stash the card away in your clues inventory.""")
+                clues.append("2. E")
                 PentajackGame.gameWin = True
             elif PentajackGame.dealerTotal > PentajackGame.playerTotal:
                 print("The dealer drew {}. You lost against the dealer.".format(PentajackGame.dealerTotal))
@@ -135,6 +135,7 @@ def Pentajack():
                 print("""You won against the dealer! """)
                 print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written 
                         in blood. You stash the card away in your clues inventory.""")
+                clues.append("2. E")
                 PentajackGame.gameWin = True
             else:
                 push()
@@ -154,6 +155,103 @@ def Pentajack():
 
         else:
             print("You walk away from the table, winnings in hand as the exit to the room opens up once more.")
+            break
+
+
+class Unscramble:
+    gameWin = False
+    lives = 4
+    words = ["you", "shall", "never", "escape"]
+    wordsCorrect = 0
+    answer = None
+
+def wordPicker():
+    while Unscramble.lives > 0 and Unscramble.wordsCorrect < 4 and Unscramble.wordsCorrect == 0:
+        print("Your first word is ""Oyu"". ")
+        Unscramble.answer = input()
+        if Unscramble.answer.lower() == Unscramble.words[0]:
+            print("Word successfully unscrambled.")
+            Unscramble.wordsCorrect = Unscramble.wordsCorrect + 1
+            Unscramble.lives = 4
+            print("The room's water level sinks back to the ground floor.")
+            print("Your lives refreshed!")
+        else:
+            print("A loud noise and flashing red lights fill the room. The level of water in the room increases.")
+            Unscramble.lives = Unscramble.lives - 1
+            if Unscramble.lives == 1:
+                print("You have {} life remaining.".format(Unscramble.lives))
+            else:
+                print("You have {} lives remaining.".format(Unscramble.lives))
+        continue
+
+    while Unscramble.lives > 0 and Unscramble.wordsCorrect < 4 and Unscramble.wordsCorrect == 1:
+        print("Your second word is ""Hlsla""")
+        Unscramble.answer = input()
+        if Unscramble.answer.lower() == Unscramble.words[1]:
+            print("Word successfully unscrambled.")
+            Unscramble.wordsCorrect = Unscramble.wordsCorrect + 1
+            Unscramble.lives = 4
+            print("The room's water level sinks back to the ground floor.")
+            print("Your lives refreshed!")
+        else:
+            print("A loud noise and flashing red lights fill the room. The level of water in the room increases.")
+            Unscramble.lives = Unscramble.lives - 1
+            if Unscramble.lives == 1:
+                print("You have {} life remaining.".format(Unscramble.lives))
+            else:
+                print("You have {} lives remaining.".format(Unscramble.lives))
+        continue
+
+    while Unscramble.lives > 0 and Unscramble.wordsCorrect < 4 and Unscramble.wordsCorrect == 2:
+        print("Your second word is ""Enrve""")
+        Unscramble.answer = input()
+        if Unscramble.answer.lower() == Unscramble.words[2]:
+            print("Word successfully unscrambled.")
+            Unscramble.wordsCorrect = Unscramble.wordsCorrect + 1
+            Unscramble.lives = 4
+            print("The room's water level sinks back to the ground floor.")
+            print("Your lives refreshed!")
+        else:
+            print("A loud noise and flashing red lights fill the room. The level of water in the room increases.")
+            Unscramble.lives = Unscramble.lives - 1
+            if Unscramble.lives == 1:
+                print("You have {} life remaining.".format(Unscramble.lives))
+            else:
+                print("You have {} lives remaining.".format(Unscramble.lives))
+        continue
+
+    while Unscramble.lives > 0 and Unscramble.wordsCorrect < 4 and Unscramble.wordsCorrect == 3:
+        print("Your second word is ""Peeacs""")
+        Unscramble.answer = input()
+        if Unscramble.answer == Unscramble.words[3]:
+            print("Word successfully unscrambled.")
+            Unscramble.wordsCorrect = Unscramble.wordsCorrect + 1
+            Unscramble.lives = 4
+            print("The room's water level sinks back to the ground floor.")
+            print("Your lives refreshed!")
+        else:
+            print("A loud noise and flashing red lights fill the room. The level of water in the room increases.")
+            Unscramble.lives = Unscramble.lives - 1
+            if Unscramble.lives == 1:
+                print("You have {} life remaining.".format(Unscramble.lives))
+            else:
+                print("You have {} lives remaining.".format(Unscramble.lives))
+        continue
+def mainUnscramble():
+    if Unscramble.gameWin == False:
+        print("Hello")
+    else:
+        print("Goodbye")
+        return
+    while True:
+        wordPicker()
+        if Unscramble.lives > 0 and Unscramble.wordsCorrect >= 4:
+            print("Win")
+            Unscramble.gameWin == True
+            return
+        elif Unscramble.lives <= 0 and Unscramble.wordsCorrect < 4:
+            print("Lose")
+            exit()
             break
 
 class Combat:
@@ -333,8 +431,6 @@ foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(
         Combat.enemyWeapon = None
         Combat.roundNumber = Combat.roundNumber + 1
 
-
-
 def gameFramework():
     if Combat.gameWin == False:
         print("Hello")
@@ -349,6 +445,7 @@ def gameFramework():
 
         if Combat.playerHP > 0 and Combat.enemyHP <= 0:
             print("Win")
+            Combat.gameWin = True
             break
         elif Combat.playerHP <= 0 and Combat.enemyHP > 0:
             print("Lose")
@@ -356,6 +453,7 @@ def gameFramework():
         elif Combat.playerHP <= 0 and Combat.enemyHP <= 0:
             if Combat.playerHP > Combat.enemyHP:
                 print("Winner.")
+                Combat.gameWin = True
                 break
             else:
                 print("Loser")
@@ -363,7 +461,7 @@ def gameFramework():
 
 
 nextStage = False
-
+mainUnscramble()
 while nextStage == False:
     gameFramework()
     gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
@@ -398,7 +496,9 @@ while nextStage == True:
         if doorChoice.lower() == "a":
             Pentajack()
         elif doorChoice.lower() == "b":
-            room1()
+            codeCracker()
+        elif doorChoice.lower() == "c":
+            gameFramework()
         else:
             raise ValueError("I can't have that as an answer!")
     except:
