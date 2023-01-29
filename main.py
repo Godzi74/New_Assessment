@@ -1,5 +1,6 @@
 import random
-
+import sys
+import time
 # clues list that contains each clue that te player has obtained from each door. This is printed when the player approaches the final door.
 clues = []
 
@@ -25,7 +26,8 @@ that the safe has the letter "X" written all over it. The walls are also engrave
 You touch the safe's screen and a robotic voice begins to play. "Welcome to the safe. Please enter the correct code. 
 Intruders will be punished with their lives." Prioritising your life above all, you turn away from the table and head
 back to where you came from, however you realise that the door has been completely shut behind you. In hopes of freedom
-from this room, you go back to the safe.""")
+from this room, you go back to the safe.
+""")
     else:
         print("You've already been in this room.")
         return
@@ -50,7 +52,8 @@ from this room, you go back to the safe.""")
                 if num1 / num2 != x:
                     print("Incorrect code.")
                     print("""You notice the walls beginning to close in on themselves, which is accompanied by a rumbling"
-noise.""")
+noise.
+""")
 
                     attemptsMade = attemptsMade + 1
             # error handling
@@ -63,14 +66,16 @@ noise.""")
         print("""The safe suddenly begins to flash, then glows a solid green colour. "Code cracking completed" the voice
 says. "Safe opened." Fantasising about what treasures the safe beholds, you peer into the safe. In it, holds only a
 sheet of paper that has "4: R" written on it. A door leading back to the lobby opens. With disappointment written all
-over you face, you leave the room.""")
+over you face, you leave the room.
+""")
         clues.append("4. R")
         gameWin = True
         return
     else:
         # when lose condition is reached.
         print("""The safe suddenly begins to flash a bright red colour. "Code cracking failed. Intruder detected!
-initiating anti-theft protocols" """)
+initiating anti-theft protocols". 
+""")
         exit()
 
 # the class and methods for the Pentajack room.
@@ -131,16 +136,19 @@ def Pentajack():
         print("""You find yourself as a Casino, bustling with gamblers at nearly every slot and table. You try to
 start conversation to try and find out if anyone knows what is going on or how to escape, but they are 
 completely entranced in their gambling activities. You try and leave the room from where you came from, however, you 
-soon realise that the entrance that you entered through has now mysteriously vanished.""")
+soon realise that the entrance that you entered through has now mysteriously vanished.
+""")
 
         print("""You notice a hooded figure cloaked in black, staring at you. They eventually approach you and say that
 they overheard you. "There's one way you can leave this place" he says, as he leads you to a table. "All you 
 have to do is beat me in a game of Pentajack. The rules are simple; score higher than me, but don't go over 21.
-In this game, you don't play with chips; you play with your life." """)
+In this game, you don't play with chips; you play with your life." 
+""")
 
         print("""Completely mortified, you freeze in place. After a moment, you regain composure and soon realise that
 a better option is truly wishful thinking and that this is the only way forward and out. You accept the rules
-of the game. The figure offers you a seat.""")
+of the game. The figure offers you a seat.
+""")
 
         print("Welcome to the table")
     else:
@@ -166,7 +174,8 @@ of the game. The figure offers you a seat.""")
                 print("The dealer drew {}. The dealer went bust!".format(PentajackGame.dealerTotal))
                 print("""You won against the dealer! """)
                 print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written in
-                blood. You stash the card away in your clues inventory.""")
+                blood. You stash the card away in your clues inventory.
+                """)
                 clues.append("2. E")
                 PentajackGame.gameWin = True
             elif PentajackGame.dealerTotal > PentajackGame.playerTotal:
@@ -180,7 +189,8 @@ of the game. The figure offers you a seat.""")
                                                                                 PentajackGame.playerTotal))
                 print("""You won against the dealer! """)
                 print("""The dealer draws one more card and gives it to you. On the back of the card, "2. E" is written 
-                        in blood. You stash the card away in your clues inventory.""")
+                        in blood. You stash the card away in your clues inventory.
+                        """)
                 clues.append("2. E")
                 PentajackGame.gameWin = True
             else:
@@ -296,7 +306,8 @@ def mainUnscramble():
     if Unscramble.gameWin == False:
         print("""You enter a room, filled with terminals and screens labelled all over with 1s and 0s. In the centre of
 the room lies a tablet with four different codes that need to be decrypted. The door behind you suddenly closes as you 
-touch the tablet. You also notice a shallow pool of water on the ground. With nothing much else to do""")
+touch the tablet. You also notice a shallow pool of water on the ground. With nothing much else to do, you try and
+decipher the codes.""")
     else:
         # returns the player if they have already completed the room.
         print("You've already been in this room.")
@@ -306,14 +317,16 @@ touch the tablet. You also notice a shallow pool of water on the ground. With no
         # player wins when they decipher all words,
         if Unscramble.lives > 0 and Unscramble.wordsCorrect >= 4:
             print("""The tablet changes to a white screen that reads: "deciphering complete. Draining water and opening
-exit." The screen then goes blank, before displaying "3. A" in red text. You make a note of this before leaving the room.""")
+exit." The screen then goes blank, before displaying "3. A" in red text. You make a note of this before leaving the room.
+""")
             Unscramble.gameWin = True
             clues.append("3. A")
             return
         # player loses when they run out of lives.
         elif Unscramble.lives <= 0 and Unscramble.wordsCorrect < 4:
             print("""With the final failed attempt, the room fills with water again, filling in the last air pocket. You
-are completely submerged in water...""")
+are completely submerged in water...
+""")
             exit()
             break
 
@@ -510,7 +523,8 @@ ground. You are in a colosseum. Before you awaits a fearsome gladiator that tell
 this predicament, you quickly turn around and make a dash for the exit, but you are soon met by two other gladiators
 with spears that force you back into the colosseum. "You run from a gladiatorial contest? Fool! have you no shame?" the
 gladiator says mockingly. He kicks a gladiator helm along the ground in your direction. "Steel yourself" he yells, as he
-picks his weapon. Trembling, you pick up and wear the helm, preparing for the worst.""")
+picks his weapon. Trembling, you pick up and wear the helm, preparing for the worst.
+""")
     else:
         print("You've already been in this room.")
         return
@@ -527,7 +541,8 @@ picks his weapon. Trembling, you pick up and wear the helm, preparing for the wo
 colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
 bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on it. You try and ask him if he knows
  anything about escaping the pentagon, but your question is utterly drowned out by the cheers of the crowd. You leave
- the colosseum.""")
+ the colosseum.
+ """)
             clues.append("1. F")
             Combat.gameWin = True
             break
@@ -542,7 +557,8 @@ bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on
 colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
 bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on it. You try and ask him if he knows
 anything about escaping the pentagon, but your question is utterly drowned out by the cheers of the crowd. You leave
-the colosseum.""")
+the colosseum.
+""")
                 clues.append("1. F")
                 Combat.gameWin = True
                 break
@@ -560,7 +576,8 @@ class FinalRoom:
 def finalDoor():
     print("""Whether prepared or not, you make your way to the iron door. As you stand in front of it, you notice a LED
 screen with the number three. There are four slots that each hold a character. A keyboard presents itself to you to
-type out the password.""")
+type out the password.
+""")
 
     # enables the user to input a password as long as they have attempts remaining.
 
@@ -570,14 +587,15 @@ type out the password.""")
         elif len(clues) > 0:
             print("You clues are: {}".format(clues))
         print("What is the password?")
-        FinalRoom.answer = input()
+        FinalRoom.answer = input().upper()
         # win state.
         if FinalRoom.answer == FinalRoom.password:
             print("""All of a sudden, the power appears to go out in the room, shrouding you in complete darkness. Then
 a rumbling noise can be heard in the distance, which is soon accompanied by a larger rumbling. The iron door starts to
 shift, unveiling a tunnel, where a small light can be seen in the distance. You begin to sprint towards it, with the
 light becoming larger as you close the distance, until you are greeted with thr rushing winds of the great outdoors.
-You have successfully escaped the pentagon.""")
+You have successfully escaped the pentagon!
+""")
             exit()
         else:
             # subtracts an attempt upon an incorrect password.
@@ -587,7 +605,8 @@ You have successfully escaped the pentagon.""")
     if FinalRoom.attemptsMade <= 0:
         # lose state.
         print("""The LED screen drops from 1 to 0. Soon after, the floor begins to quake, opening a sinkhole, where you
-truly will never escape from, as its epicentre sucks you into the depths of the pentagon.""")
+truly will never escape from, as its epicentre sucks you into the depths of the pentagon.
+""")
         exit()
 
 nextStage = False
@@ -595,30 +614,33 @@ nextStage = False
 while nextStage == False:
     # game start.
     print("Welcome to Escape the Pentagon!")
-    gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
+    print("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
 a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
-is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? """)
-
+is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? 
+""")
+    gameStart = input()
     try:
 
         if gameStart.lower() in ["y", "yes"]:
             print("""With not many other options, you yell at the top of your lungs that you accept this challenge.
-Suddenly, your hear four the sound of four locks unlocking. Aside from the large metal door, you realise
-that the other doors are unlocked, labeled from A to E, with the large door being door E.""")
+Suddenly, your hear the sound of four locks unlocking. Aside from the large metal door, you realise
+that the other doors are unlocked, labeled from A to E, with the large door being door E.
+""")
             nextStage = True
 
         elif gameStart.lower() in ["n", "no"]:
             print("""With how incredibly silly this situation is, you simply tear up the note and begin looking for
 alternate escape routes. Soon after, the ground begins to quake and a hole slowly begins to extend to the
 edges of the room. With nowhere to run, you wait for your inevitable demise, as you finally sink into
-the hole; the deep dark abyss, where your tale ends...""")
+the hole; the deep dark abyss, where your tale ends...
+""")
             nextStage = False
             exit()
 
         else:
             raise ValueError("I can't have that as an answer!")
     except :
-            print("I can't have that as an answer!")
+         #   print("I can't have that as an answer!")
             nextStage = False
 
 while nextStage == True:
@@ -638,4 +660,4 @@ while nextStage == True:
         else:
             raise ValueError("I can't have that as an answer!")
     except:
-        print("I can't have that as an answer!")
+        print()
