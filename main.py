@@ -1,8 +1,14 @@
 import random
 
+# clues list that contains each clue that te player has obtained from each door. This is printed when the player approaches the final door.
 clues = []
+
+# code cracker game.
 def codeCracker():
     safe_code = []
+    gameWin = False
+
+    # randomises safe code
     while len(safe_code) < 3:
         code = random.randint(3, 12)
         if code not in safe_code:
@@ -10,33 +16,64 @@ def codeCracker():
 
     codes_cracked = 0
     attemptsMade = 0
-    print("You enter an empty room with nothing but a table and a safe.")
+
+# checks if the player has already been in the room.
+    if gameWin == False:
+        print("""You enter an empty room with nothing but a table and a safe. Upon approaching the table, you realise 
+that the safe has the letter "X" written all over it. The walls are also engraved all over with a peculiar equation:
+"x = 1st / 2nd". 
+You touch the safe's screen and a robotic voice begins to play. "Welcome to the safe. Please enter the correct code. 
+Intruders will be punished with their lives." Prioritising your life above all, you turn away from the table and head
+back to where you came from, however you realise that the door has been completely shut behind you. In hopes of freedom
+from this room, you go back to the safe.""")
+    else:
+        print("You've already been in this room.")
+        return
+
+    # allows the player to play as long as they haven't met the win/lose condition
     while codes_cracked < 3 and attemptsMade < 3:
         for x in safe_code:
             print("The code is", x)
+            # asks the player for two values
             try:
                 num1 = int(input("Enter the first number: "))
                 num2 = int(input("Enter the second number: "))
                 if num2 == 1:
                     raise ValueError("You can't pick one for the second number")
                     break
+            # equation to check whether the input matches the code.
+            # outcome when the code matches
                 if num1 / num2 == x:
                     print("Code cracked")
                     codes_cracked = codes_cracked + 1
+            # outcome when the code doesn't match
                 if num1 / num2 != x:
-                    print("Incorrect code")
+                    print("Incorrect code.")
+                    print("""You notice the walls beginning to close in on themselves, which is accompanied by a rumbling"
+noise.""")
+
                     attemptsMade = attemptsMade + 1
+            # error handling
             except ValueError:
                 print("That is not a number")
                 break
 
+            # when win condition is reached
     if codes_cracked >= 3 and attemptsMade < 3:
-        print("Safe opened")
+        print("""The safe suddenly begins to flash, then glows a solid green colour. "Code cracking completed" the voice
+says. "Safe opened." Fantasising about what treasures the safe beholds, you peer into the safe. In it, holds only a
+sheet of paper that has "4: R" written on it. A door leading back to the lobby opens. With disappointment written all
+over you face, you leave the room.""")
+        clues.append("4. R")
+        gameWin = True
         return
     else:
-        print("L.")
+        # when lose condition is reached.
+        print("""The safe suddenly begins to flash a bright red colour. "Code cracking failed. Intruder detected!
+initiating anti-theft protocols" """)
         exit()
 
+# the class and methods for the Pentajack room.
 class PentajackGame:
 
     playing = True
@@ -48,6 +85,7 @@ class PentajackGame:
     gameWin = False
 
 
+# gives the player and the dealer a random set of cards at the start of each game.
 def draw():
     PentajackGame.playerHand.append(random.randint(1,10))
     PentajackGame.playerHand.append(random.randint(1,10))
@@ -56,18 +94,18 @@ def draw():
     PentajackGame.dealerTotal = sum(PentajackGame.dealerHand)
     print("""You have a {} and a {}. Your total is {} The dealer has a {}.""".format(PentajackGame.playerHand[0], PentajackGame.playerHand[1], PentajackGame.playerTotal, PentajackGame.dealerHand[0]))
 
-
+# allows the player to draw another card.
 def hit():
     PentajackGame.playerHand.append((random.randint(1, 10)))
     PentajackGame.playerTotal = sum(PentajackGame.playerHand)
     print(PentajackGame.playerTotal)
 
-
+# makes the dealer draw a card
 def dealerHit():
     PentajackGame.dealerHand.append(random.randint(1, 10))
     PentajackGame.dealerTotal = sum(PentajackGame.dealerHand)
 
-
+# asks the player whether they want to continue drawing cards or stop.
 def hitOrStand():
     global playing
 
@@ -82,42 +120,48 @@ def hitOrStand():
             print("That's not an answer. Give me a real man's answer.")
             continue
         break
+
+        # is called when the player and the dealer has the same hand. This is a draw state.
 def push():
     print("The dealer drew {}. You also have {}. No winners!".format(PentajackGame.dealerTotal, PentajackGame.playerTotal))
 
+    # the main game method. Calls other methods when certain conditions are met.
 def Pentajack():
     if PentajackGame.gameWin == False:
         print("""You find yourself as a Casino, bustling with gamblers at nearly every slot and table. You try to
-        start conversation to try and fin out if anyone knows what is going on or how to escape, but they are completely
-        entranced in their gambling activities. You try and leave the room from where you came from, however, you soon
-        realise that the entrance that you entered through has now mysteriously vanished.
-        """)
-        print("""You notice a hooded figure cloaked in black, staring a you. They eventually approach you and say that
-        they overheard you. "There's one way you can leave this place" he says, as he leads you to a table. "All you 
-        have to do is beat me in a game of Pentajack. The rules are simple; score higher than me, but don't go over 21.
-        In this game, you don't play with chips; you play with your life.
-        """)
+start conversation to try and find out if anyone knows what is going on or how to escape, but they are 
+completely entranced in their gambling activities. You try and leave the room from where you came from, however, you 
+soon realise that the entrance that you entered through has now mysteriously vanished.""")
+
+        print("""You notice a hooded figure cloaked in black, staring at you. They eventually approach you and say that
+they overheard you. "There's one way you can leave this place" he says, as he leads you to a table. "All you 
+have to do is beat me in a game of Pentajack. The rules are simple; score higher than me, but don't go over 21.
+In this game, you don't play with chips; you play with your life." """)
+
         print("""Completely mortified, you freeze in place. After a moment, you regain composure and soon realise that
-        a better option is truly wishful thinking and that this is the only way forward and out. You accept the rules
-        of the game. The figure offers you a seat.
-        """)
+a better option is truly wishful thinking and that this is the only way forward and out. You accept the rules
+of the game. The figure offers you a seat.""")
+
         print("Welcome to the table")
     else:
+        # returns the player to the main room if they have already entered the room.
         print("You've already been in this room.")
         return
     while True:
         draw()
         while PentajackGame.playing:
             hitOrStand()
-
+            # when player has over 21, the player loses.
             if PentajackGame.playerTotal > 21:
                 print("You busted!")
                 PentajackGame.lives = PentajackGame.lives - 1
                 print("You lost 1 life. You have {} remaining.".format(PentajackGame.lives))
                 break
         if PentajackGame.playerTotal <= 21:
+            # when the player has less than 21 and stops drawing, the dealer draws.
             while PentajackGame.dealerTotal < 17:
                 dealerHit()
+            # when the dealer has less than the player, the player wins.
             if PentajackGame.dealerTotal > 21:
                 print("The dealer drew {}. The dealer went bust!".format(PentajackGame.dealerTotal))
                 print("""You won against the dealer! """)
@@ -126,10 +170,12 @@ def Pentajack():
                 clues.append("2. E")
                 PentajackGame.gameWin = True
             elif PentajackGame.dealerTotal > PentajackGame.playerTotal:
+                # when the dealer has more than the player, they lose.
                 print("The dealer drew {}. You lost against the dealer.".format(PentajackGame.dealerTotal))
                 PentajackGame.lives = PentajackGame.lives - 1
                 print("You lost 1 life. You have {} remaining.".format(PentajackGame.lives))
             elif PentajackGame.dealerTotal < PentajackGame.playerTotal:
+                # when the player has more than the dealer they win.
                 print("The dealer drew {}. You have a higher hand of {}".format(PentajackGame.dealerTotal,
                                                                                 PentajackGame.playerTotal))
                 print("""You won against the dealer! """)
@@ -140,6 +186,7 @@ def Pentajack():
             else:
                 push()
 
+        # allows the player to continue playing as long as they have lives.
         if PentajackGame.gameWin == False and PentajackGame.lives > 0:
             PentajackGame.playing = True
             print("""You ask for another hand.""")
@@ -148,6 +195,8 @@ def Pentajack():
             PentajackGame.playerTotal = 0
             PentajackGame.dealerTotal = 0
             continue
+
+        # when the player runs out of lives, they lose.
         elif PentajackGame.gameWin == False and PentajackGame.lives == 0:
             print("""You lean back from the table in horror, as you have no more lives to gamble. You slowly slump over 
                     in your chair as you feel your life force seep away from you.""")
@@ -158,6 +207,7 @@ def Pentajack():
             break
 
 
+# class and methods for the unscramble game.
 class Unscramble:
     gameWin = False
     lives = 4
@@ -165,6 +215,8 @@ class Unscramble:
     wordsCorrect = 0
     answer = None
 
+# prints out the word that the player must unscramble based on how many words they have completed.
+# when they guess incorrectly, they lose a life.
 def wordPicker():
     while Unscramble.lives > 0 and Unscramble.wordsCorrect < 4 and Unscramble.wordsCorrect == 0:
         print("Your first word is ""Oyu"". ")
@@ -232,28 +284,40 @@ def wordPicker():
         else:
             print("A loud noise and flashing red lights fill the room. The level of water in the room increases.")
             Unscramble.lives = Unscramble.lives - 1
+            # informs the user on how many lives they have left.
             if Unscramble.lives == 1:
                 print("You have {} life remaining.".format(Unscramble.lives))
             else:
                 print("You have {} lives remaining.".format(Unscramble.lives))
         continue
+
+# method that plays out the game and its outcomes.
 def mainUnscramble():
     if Unscramble.gameWin == False:
-        print("Hello")
+        print("""You enter a room, filled with terminals and screens labelled all over with 1s and 0s. In the centre of
+the room lies a tablet with four different codes that need to be decrypted. The door behind you suddenly closes as you 
+touch the tablet. You also notice a shallow pool of water on the ground. With nothing much else to do""")
     else:
-        print("Goodbye")
+        # returns the player if they have already completed the room.
+        print("You've already been in this room.")
         return
     while True:
         wordPicker()
+        # player wins when they decipher all words,
         if Unscramble.lives > 0 and Unscramble.wordsCorrect >= 4:
-            print("Win")
-            Unscramble.gameWin == True
+            print("""The tablet changes to a white screen that reads: "deciphering complete. Draining water and opening
+exit." The screen then goes blank, before displaying "3. A" in red text. You make a note of this before leaving the room.""")
+            Unscramble.gameWin = True
+            clues.append("3. A")
             return
+        # player loses when they run out of lives.
         elif Unscramble.lives <= 0 and Unscramble.wordsCorrect < 4:
-            print("Lose")
+            print("""With the final failed attempt, the room fills with water again, filling in the last air pocket. You
+are completely submerged in water...""")
             exit()
             break
 
+# class and methods for Combat simulator
 class Combat:
     gameWin = False
     roundNumber = 1
@@ -268,10 +332,10 @@ class Combat:
     enemyWeapon = None
     enemyElement = None
 def enemyChoice():
+    # chooses a random weapon and element from the list of available ones.
     Combat.enemyWeapon = random.choice(Combat.weapons)
-    print(Combat.enemyWeapon)
     Combat.enemyElement = random.choice(Combat.element)
-    print((Combat.enemyElement))
+    # prints out the round number and hints to the player what the enemy is using.
     print("Round {}. FIGHT!".format(Combat.roundNumber))
     if "Ice" in Combat.enemyElement:
         print("""There is a misty atmosphere swirling around the arena...""")
@@ -281,6 +345,7 @@ def enemyChoice():
         print("""You feel your shoes slightly sink into the ground as the floor in the arena dampens a bit...""")
 def playerChoice():
     while True:
+        # allows the player to choose a weapon.
         weaponChoice = input("Select a weapon. You have a sword, a lance and an axe.")
         if weaponChoice.lower() == "sword":
             Combat.playerWeapon = {"Sword": 10}
@@ -292,9 +357,11 @@ def playerChoice():
             Combat.playerWeapon = {"Axe": 10}
             break
         else:
+            # error handling.
             print("You don't have that weapon. Are you trying to die?!")
             continue
     while True:
+        # allows the player to select an element.
         elementChoice = input("Select the magic you will use. You can use fire, water or ice.")
         if elementChoice.lower() == "fire":
             Combat.playerElement = {"Fire": 10}
@@ -306,8 +373,11 @@ def playerChoice():
             Combat.playerElement = {"Ice": 10}
             break
         else:
+            # error handling.
             print("You don't know how to cast that type of magic. Stop fooling around!")
             continue
+
+# calculates the damage outcomes depending on what the player picked vs. what the enemy has.
 def fight():
     if "Sword" in Combat.playerWeapon and "Axe" in Combat.enemyWeapon:
         Combat.playerAttack = 20
@@ -431,56 +501,89 @@ foe has {} HP. The enemy deals {} to you. You have {} HP.""".format(
         Combat.enemyWeapon = None
         Combat.roundNumber = Combat.roundNumber + 1
 
+# handles the structure of the game.
 def gameFramework():
+    # checks if the player has already completed this room.
     if Combat.gameWin == False:
-        print("Hello")
+        print("""Upon entering the room, you are surrounded with loud cheering and sand dust clouds that hover along the
+ground. You are in a colosseum. Before you awaits a fearsome gladiator that tells you to draw your weapon. To escape
+this predicament, you quickly turn around and make a dash for the exit, but you are soon met by two other gladiators
+with spears that force you back into the colosseum. "You run from a gladiatorial contest? Fool! have you no shame?" the
+gladiator says mockingly. He kicks a gladiator helm along the ground in your direction. "Steel yourself" he yells, as he
+picks his weapon. Trembling, you pick up and wear the helm, preparing for the worst.""")
     else:
-        print("Goodbye")
+        print("You've already been in this room.")
         return
     while True:
+        # allows the fight to continue as long as the player and enemy have remaining hp.
         while Combat.playerHP > 0 and Combat.enemyHP > 0:
             enemyChoice()
             playerChoice()
             fight()
 
         if Combat.playerHP > 0 and Combat.enemyHP <= 0:
-            print("Win")
+            print("""The gladiator falls. Astonished, the crowd goes completely silent, then a great uproar fills the
+colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
+bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on it. You try and ask him if he knows
+ anything about escaping the pentagon, but your question is utterly drowned out by the cheers of the crowd. You leave
+ the colosseum.""")
+            clues.append("1. F")
             Combat.gameWin = True
             break
         elif Combat.playerHP <= 0 and Combat.enemyHP > 0:
-            print("Lose")
+            print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
             exit()
         elif Combat.playerHP <= 0 and Combat.enemyHP <= 0:
             if Combat.playerHP > Combat.enemyHP:
-                print("Winner.")
+                print("""The gladiator falls. Astonished, the crowd goes completely silent, then a great uproar fills the
+colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
+bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on it. You try and ask him if he knows
+anything about escaping the pentagon, but your question is utterly drowned out by the cheers of the crowd. You leave
+the colosseum.""")
+                clues.append("1. F")
                 Combat.gameWin = True
                 break
             else:
-                print("Loser")
+                print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
                 exit()
 
 
 nextStage = False
-mainUnscramble()
+
+class FinalRoom:
+    password = "FEAR"
+    answer = None
+    attemptsMade = 0
+    gameWin = False
+
+def finalDoor():
+    while FinalRoom.attemptsMade < 3 and FinalRoom.gameWin == False:
+        if len(clues) == 0:
+            print("You have no clues")
+        elif len(clues) > 0:
+            print("You clues are: {}".format(clues))
+    print("What is the password?")
+
+
 while nextStage == False:
-    gameFramework()
+    print("Welcome to Escape the Pentagon!")
     gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
-    a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
-     is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? """)
+a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
+is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? """)
 
     try:
 
         if gameStart.lower() in ["y", "yes"]:
             print("""With not many other options, you yell at the top of your lungs that you accept this challenge.
-            Suddenly, your hear four the sound of four locks unlocking. Aside from the large metal door, you realise
-            that the other doors are unlocked, labeled from A to D.""")
+Suddenly, your hear four the sound of four locks unlocking. Aside from the large metal door, you realise
+that the other doors are unlocked, labeled from A to E, with the large door being door E.""")
             nextStage = True
 
         elif gameStart.lower() in ["n", "no"]:
             print("""With how incredibly silly this situation is, you simply tear up the note and begin looking for
-            alternate escape routes. Soon after, the ground begins to quake and a hole slowly begins to extend to the
-            edges of the room. With nowhere to run, you wait for your inevitable demise, as you finally sink into
-            the hole; the deep dark abyss, where your tale ends...""")
+alternate escape routes. Soon after, the ground begins to quake and a hole slowly begins to extend to the
+edges of the room. With nowhere to run, you wait for your inevitable demise, as you finally sink into
+the hole; the deep dark abyss, where your tale ends...""")
             nextStage = False
             break
 
@@ -499,6 +602,10 @@ while nextStage == True:
             codeCracker()
         elif doorChoice.lower() == "c":
             gameFramework()
+        elif doorChoice.lower() == "d":
+            mainUnscramble()
+        elif doorChoice.lower() == "e":
+            finalDoor()
         else:
             raise ValueError("I can't have that as an answer!")
     except:
