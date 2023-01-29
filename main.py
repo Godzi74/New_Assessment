@@ -50,7 +50,7 @@ from this room, you go back to the safe.
             # outcome when the code doesn't match
                 if num1 / num2 != x:
                     print("Incorrect code.")
-                    print("""You notice the walls beginning to close in on themselves, which is accompanied by a rumbling"
+                    print("""You notice the walls closing in on themselves, which is accompanied by a rumbling"
 noise.
 """)
 
@@ -73,8 +73,9 @@ over you face, you leave the room.
     else:
         # when lose condition is reached.
         print("""The safe suddenly begins to flash a bright red colour. "Code cracking failed. Intruder detected!
-initiating anti-theft protocols". 
+initiating anti-theft protocols". The walls completely close in on itself. What a horrific end!
 """)
+        time.sleep(7)
         exit()
 
 # the class and methods for the Pentajack room.
@@ -209,6 +210,7 @@ of the game. The figure offers you a seat.
         elif PentajackGame.gameWin == False and PentajackGame.lives == 0:
             print("""You lean back from the table in horror, as you have no more lives to gamble. You slowly slump over 
                     in your chair as you feel your life force seep away from you.""")
+            time.sleep(7)
             exit()
 
         else:
@@ -326,6 +328,7 @@ exit." The screen then goes blank, before displaying "3. A" in red text. You mak
             print("""With the final failed attempt, the room fills with water again, filling in the last air pocket. You
 are completely submerged in water...
 """)
+            time.sleep(7)
             exit()
             break
 
@@ -548,6 +551,7 @@ bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on
         # lose state.
         elif Combat.playerHP <= 0 and Combat.enemyHP > 0:
             print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
+            time.sleep(7)
             exit()
         elif Combat.playerHP <= 0 and Combat.enemyHP <= 0:
             # win state
@@ -564,6 +568,7 @@ the colosseum.
             else:
             # lose state
                 print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
+                time.sleep(7)
                 exit()
 
 # class and method for the final door.
@@ -595,6 +600,7 @@ shift, unveiling a tunnel, where a small light can be seen in the distance. You 
 light becoming larger as you close the distance, until you are greeted with thr rushing winds of the great outdoors.
 You have successfully escaped the pentagon!
 """)
+            time.sleep(10)
             exit()
         else:
             # subtracts an attempt upon an incorrect password.
@@ -606,20 +612,23 @@ You have successfully escaped the pentagon!
         print("""The LED screen drops from 1 to 0. Soon after, the floor begins to quake, opening a sinkhole, where you
 truly will never escape from, as its epicentre sucks you into the depths of the pentagon.
 """)
+        time.sleep(7)
         exit()
 
 nextStage = False
+die = False
 
 while nextStage == False:
     # game start.
+    gameStart = None
     print("Welcome to Escape the Pentagon!")
+    #  asks the user if they want to play.
     print("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
 a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
 is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? 
 """)
     gameStart = input()
     try:
-
         if gameStart.lower() in ["y", "yes"]:
             print("""With not many other options, you yell at the top of your lungs that you accept this challenge.
 Suddenly, your hear the sound of four locks unlocking. Aside from the large metal door, you realise
@@ -633,30 +642,29 @@ alternate escape routes. Soon after, the ground begins to quake and a hole slowl
 edges of the room. With nowhere to run, you wait for your inevitable demise, as you finally sink into
 the hole; the deep dark abyss, where your tale ends...
 """)
-            nextStage = False
-            exit()
-
+            die = True
         else:
             raise ValueError("I can't have that as an answer!")
     except :
-         #   print("I can't have that as an answer!")
             nextStage = False
+
+    # exits the program if the user says no.
+    if die == True:
+        time.sleep(7)
+        exit()
 
 while nextStage == True:
     # allows a user to select a room, which will take them to play the game.
     doorChoice = input("Which door will you check?")
-    try:
-        if doorChoice.lower() == "a":
-            Pentajack()
-        elif doorChoice.lower() == "b":
-            codeCracker()
-        elif doorChoice.lower() == "c":
-            gameFramework()
-        elif doorChoice.lower() == "d":
-            mainUnscramble()
-        elif doorChoice.lower() == "e":
-            finalDoor()
-        else:
-            raise ValueError("I can't have that as an answer!")
-    except:
-        print("I can't have that as an answer!")
+    if doorChoice.lower() == "a":
+        Pentajack()
+    elif doorChoice.lower() == "b":
+        codeCracker()
+    elif doorChoice.lower() == "c":
+        gameFramework()
+    elif doorChoice.lower() == "d":
+        mainUnscramble()
+    elif doorChoice.lower() == "e":
+        finalDoor()
+    else:
+        print("I can't have that as an answer.")
