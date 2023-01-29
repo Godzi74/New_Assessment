@@ -521,6 +521,7 @@ picks his weapon. Trembling, you pick up and wear the helm, preparing for the wo
             playerChoice()
             fight()
 
+        # win state.
         if Combat.playerHP > 0 and Combat.enemyHP <= 0:
             print("""The gladiator falls. Astonished, the crowd goes completely silent, then a great uproar fills the
 colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
@@ -530,10 +531,12 @@ bravery." He hands you a celebratory dagger, with the writing "1. F" engraved on
             clues.append("1. F")
             Combat.gameWin = True
             break
+        # lose state.
         elif Combat.playerHP <= 0 and Combat.enemyHP > 0:
             print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
             exit()
         elif Combat.playerHP <= 0 and Combat.enemyHP <= 0:
+            # win state
             if Combat.playerHP > Combat.enemyHP:
                 print("""The gladiator falls. Astonished, the crowd goes completely silent, then a great uproar fills the
 colosseum once. A gladiator walks up to you with something in hand. "Please take this as a monument to your strength and
@@ -544,28 +547,53 @@ the colosseum.""")
                 Combat.gameWin = True
                 break
             else:
+            # lose state
                 print("""You fall at the hands of the mighty gladiator. Did you really stand a stand?!""")
                 exit()
 
-
-nextStage = False
-
+# class and method for the final door.
 class FinalRoom:
     password = "FEAR"
     answer = None
-    attemptsMade = 0
-    gameWin = False
+    attemptsMade = 3
 
 def finalDoor():
-    while FinalRoom.attemptsMade < 3 and FinalRoom.gameWin == False:
+    print("""Whether prepared or not, you make your way to the iron door. As you stand in front of it, you notice a LED
+screen with the number three. There are four slots that each hold a character. A keyboard presents itself to you to
+type out the password.""")
+
+    # enables the user to input a password as long as they have attempts remaining.
+
+    while FinalRoom.attemptsMade > 0:
         if len(clues) == 0:
             print("You have no clues")
         elif len(clues) > 0:
             print("You clues are: {}".format(clues))
-    print("What is the password?")
+        print("What is the password?")
+        FinalRoom.answer = input()
+        # win state.
+        if FinalRoom.answer == FinalRoom.password:
+            print("""All of a sudden, the power appears to go out in the room, shrouding you in complete darkness. Then
+a rumbling noise can be heard in the distance, which is soon accompanied by a larger rumbling. The iron door starts to
+shift, unveiling a tunnel, where a small light can be seen in the distance. You begin to sprint towards it, with the
+light becoming larger as you close the distance, until you are greeted with thr rushing winds of the great outdoors.
+You have successfully escaped the pentagon.""")
+            exit()
+        else:
+            # subtracts an attempt upon an incorrect password.
+            FinalRoom.attemptsMade = FinalRoom.attemptsMade - 1
+            print("Incorrect password. You have {} attempts remaining.".format(FinalRoom.attemptsMade))
 
+    if FinalRoom.attemptsMade <= 0:
+        # lose state.
+        print("""The LED screen drops from 1 to 0. Soon after, the floor begins to quake, opening a sinkhole, where you
+truly will never escape from, as its epicentre sucks you into the depths of the pentagon.""")
+        exit()
+
+nextStage = False
 
 while nextStage == False:
+    # game start.
     print("Welcome to Escape the Pentagon!")
     gameStart = input("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
 a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
@@ -585,7 +613,7 @@ alternate escape routes. Soon after, the ground begins to quake and a hole slowl
 edges of the room. With nowhere to run, you wait for your inevitable demise, as you finally sink into
 the hole; the deep dark abyss, where your tale ends...""")
             nextStage = False
-            break
+            exit()
 
         else:
             raise ValueError("I can't have that as an answer!")
@@ -594,6 +622,7 @@ the hole; the deep dark abyss, where your tale ends...""")
             nextStage = False
 
 while nextStage == True:
+    # allows a user to select a room, which will take them to play the game.
     doorChoice = input("Which door will you check?")
     try:
         if doorChoice.lower() == "a":
