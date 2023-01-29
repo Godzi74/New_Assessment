@@ -4,21 +4,23 @@ import time
 clues = []
 
 # code cracker game.
-def codeCracker():
+
+class Codecracking:
     safe_code = []
     gameWin = False
-
-    # randomises safe code
-    while len(safe_code) < 3:
-        code = random.randint(3, 12)
-        if code not in safe_code:
-            safe_code.append(code)
-
     codes_cracked = 0
     attemptsMade = 0
+def codeCracker():
+    # randomises safe code
+    while len(Codecracking.safe_code) < 3:
+        code = random.randint(3, 12)
+        if code not in Codecracking.safe_code:
+            Codecracking.safe_code.append(code)
+
+
 
 # checks if the player has already been in the room.
-    if gameWin == False:
+    if Codecracking.gameWin == False:
         print("""You enter an empty room with nothing but a table and a safe. Upon approaching the table, you realise 
 that the safe has the letter "X" written all over it. The walls are also engraved all over with a peculiar equation:
 "x = 1st / 2nd". 
@@ -32,8 +34,8 @@ from this room, you go back to the safe.
         return
 
     # allows the player to play as long as they haven't met the win/lose condition
-    while codes_cracked < 3 and attemptsMade < 3:
-        for x in safe_code:
+    while Codecracking.codes_cracked < 3 and Codecracking.attemptsMade < 3:
+        for x in Codecracking.safe_code:
             print("The code is", x)
             # asks the player for two values
             try:
@@ -41,12 +43,12 @@ from this room, you go back to the safe.
                 num2 = int(input("Enter the second number: "))
                 if num2 == 1:
                     raise ValueError("You can't pick one for the second number")
-                    break
+
             # equation to check whether the input matches the code.
             # outcome when the code matches
                 if num1 / num2 == x:
                     print("Code cracked")
-                    codes_cracked = codes_cracked + 1
+                    Codecracking.codes_cracked = Codecracking.codes_cracked + 1
             # outcome when the code doesn't match
                 if num1 / num2 != x:
                     print("Incorrect code.")
@@ -54,21 +56,25 @@ from this room, you go back to the safe.
 noise.
 """)
 
-                    attemptsMade = attemptsMade + 1
+                    Codecracking.attemptsMade = Codecracking.attemptsMade + 1
             # error handling
             except ValueError:
                 print("That is not a number")
-                break
+                print("""You notice the walls closing in on themselves, which is accompanied by a rumbling"
+noise.
+""")
+                Codecracking.attemptsMade = Codecracking.attemptsMade + 1
+
 
             # when win condition is reached
-    if codes_cracked >= 3 and attemptsMade < 3:
+    if Codecracking.codes_cracked >= 3 and Codecracking.attemptsMade < 3:
         print("""The safe suddenly begins to flash, then glows a solid green colour. "Code cracking completed" the voice
 says. "Safe opened." Fantasising about what treasures the safe beholds, you peer into the safe. In it, holds only a
 sheet of paper that has "4: R" written on it. A door leading back to the lobby opens. With disappointment written all
 over you face, you leave the room.
 """)
         clues.append("4. R")
-        gameWin = True
+        Codecracking.gameWin = True
         return
     else:
         # when lose condition is reached.
@@ -209,7 +215,7 @@ of the game. The figure offers you a seat.
         # when the player runs out of lives, they lose.
         elif PentajackGame.gameWin == False and PentajackGame.lives == 0:
             print("""You lean back from the table in horror, as you have no more lives to gamble. You slowly slump over 
-                    in your chair as you feel your life force seep away from you.""")
+in your chair as you feel your life force seep away from you.""")
             time.sleep(7)
             exit()
 
