@@ -659,4 +659,4 @@ while nextStage == True:
         else:
             raise ValueError("I can't have that as an answer!")
     except:
-        print()
+        print("I can't have that as an answer!")
