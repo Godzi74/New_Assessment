@@ -1,6 +1,6 @@
 import random
 import time
-# clues list that contains each clue that te player has obtained from each door. This is printed when the player approaches the final door.
+# clues list that contains each clue that the player has obtained from each door. This is printed when the player approaches the final door.
 clues = []
 
 # code cracker game.
@@ -529,7 +529,7 @@ def gameFramework():
         print("""Upon entering the room, you are surrounded with loud cheering and sand dust clouds that hover along the
 ground. You are in a colosseum. Before you awaits a fearsome gladiator that tells you to draw your weapon. To escape
 this predicament, you quickly turn around and make a dash for the exit, but you are soon met by two other gladiators
-with spears that force you back into the colosseum. "You run from a gladiatorial contest? Fool! have you no shame?" the
+with spears that force you back into the colosseum. "You run from a gladiatorial contest? Fool! Have you no shame?" the
 gladiator says mockingly. He kicks a gladiator helm along the ground in your direction. "Steel yourself" he yells, as he
 picks his weapon. Trembling, you pick up and wear the helm, preparing for the worst.
 """)
@@ -603,7 +603,7 @@ type out the password.
             print("""All of a sudden, the power appears to go out in the room, shrouding you in complete darkness. Then
 a rumbling noise can be heard in the distance, which is soon accompanied by a larger rumbling. The iron door starts to
 shift, unveiling a tunnel, where a small light can be seen in the distance. You begin to sprint towards it, with the
-light becoming larger as you close the distance, until you are greeted with thr rushing winds of the great outdoors.
+light becoming larger as you close the distance, until you are greeted with the rushing winds of the great outdoors.
 You have successfully escaped the pentagon!
 """)
             time.sleep(10)
@@ -630,15 +630,15 @@ while nextStage == False:
     print("Welcome to Escape the Pentagon!")
     #  asks the user if they want to play.
     print("""You awake from a deep sleep and find yourself in a barren, pentagon shaped room. There is 
-a door on each wall of the room, including a large steel door labeled 'E' with a four code lock. On this door, there
+a door on each wall of the room, including a large steel door labelled 'E' with a four code lock. On this door, there
 is a small note that reads: 'Forfeit your life, or challenge the Pentagon'. Do you accept the challenge? 
 """)
     gameStart = input()
     try:
         if gameStart.lower() in ["y", "yes"]:
             print("""With not many other options, you yell at the top of your lungs that you accept this challenge.
-Suddenly, your hear the sound of four locks unlocking. Aside from the large metal door, you realise
-that the other doors are unlocked, labeled from A to E, with the large door being door E.
+Suddenly, you hear the sound of four locks unlocking. Aside from the large metal door, you realise
+that the other doors are unlocked, labelled from A to E, with the large door being door E.
 """)
             nextStage = True
 
